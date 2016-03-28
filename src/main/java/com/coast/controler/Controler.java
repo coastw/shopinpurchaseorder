@@ -6,6 +6,7 @@
 package com.coast.controler;
 
 import com.coast.model.Product;
+import com.coast.model.ResultMSG;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -23,8 +24,8 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
  */
 public class Controler {
 
-    public static String merge(String sapFile, String exportFile, String mergedFilePath) {
-        String str="";
+    public static ResultMSG merge(String sapFile, String exportFile, String mergedFilePath) {
+        ResultMSG msg = null;
         try {
             ArrayList<Product> products;
             //要导入到模板的SAP文件
@@ -33,16 +34,17 @@ public class Controler {
             String inFile = exportFile;
             //最后上传到上品网站的文件
             String outFile = mergedFilePath + File.separator + "merged.xls";
-            int sum = writeProductsToExcel(products, inFile, outFile);
-            str = "写入总数:" + sum + "";
+            //执行
+            msg = writeProductsToExcel(products, inFile, outFile);
         } catch (Exception e) {
             e.printStackTrace();
         }finally{
-            return str;
+            return msg;
         }
     }
 
-    public static int writeProductsToExcel(ArrayList<Product> products, String inFile, String outFile) throws Exception {
+    public static ResultMSG writeProductsToExcel(ArrayList<Product> products, String inFile, String outFile) throws Exception {
+        ResultMSG resultMSG = new ResultMSG();
         int sum = 0;
         InputStream is = null;
         OutputStream os = null;
@@ -59,6 +61,8 @@ public class Controler {
                 int thatRowNum = getRowNum(sheet, product.getSn(), product.getColor(), product.getSize());
                 if (thatRowNum == 0) {
                     System.out.println("没有找到对应的SAP！sn=" + product.getSn() + " color=" + product.getColor() + " size=" + product.getSize() + " amount=" + product.getAmount());
+                    String msg = "没有找到对应的SAP！sn=" + product.getSn() + " color=" + product.getColor() + " size=" + product.getSize() + " amount=" + product.getAmount()+"\n";
+                    resultMSG.setMsg(msg);
                 } else {
                     sheet.getRow(thatRowNum).createCell(6).setCellValue((double) product.getAmount());
                     sum += product.getAmount();
@@ -68,13 +72,13 @@ public class Controler {
             //
             os = new FileOutputStream(new File(outFile));
             wb.write(os);
-
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
             is.close();
             os.close();
-            return sum;
+            resultMSG.setSum(sum);
+            return resultMSG;
         }
     }
 

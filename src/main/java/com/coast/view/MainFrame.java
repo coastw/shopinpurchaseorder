@@ -6,6 +6,7 @@
 package com.coast.view;
 
 import com.coast.controler.Controler;
+import com.coast.model.ResultMSG;
 import com.coast.util.XLSFileFilter;
 import com.coast.util.XLSXFileFilter1;
 import java.io.File;
@@ -24,8 +25,8 @@ public class MainFrame extends javax.swing.JFrame {
      */
     public MainFrame() {
         initComponents();
-        this.setLocation((int)java.awt.Toolkit.getDefaultToolkit().getScreenSize().getWidth()/2-this.getWidth()/2, 
-                (int)java.awt.Toolkit.getDefaultToolkit().getScreenSize().getHeight()/2-this.getHeight()/2);
+        this.setLocation((int) java.awt.Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 2 - this.getWidth() / 2,
+                (int) java.awt.Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 2 - this.getHeight() / 2);
     }
 
     /**
@@ -104,7 +105,6 @@ public class MainFrame extends javax.swing.JFrame {
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
-        jTextArea1.setEnabled(false);
         jScrollPane1.setViewportView(jTextArea1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -204,7 +204,7 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        chooseFile(jTextField1, JFileChooser.FILES_ONLY,new XLSXFileFilter1());
+        chooseFile(jTextField1, JFileChooser.FILES_ONLY, new XLSXFileFilter1());
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -219,8 +219,13 @@ public class MainFrame extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // 生成需要上传的excel文件
         jTextArea1.setText("");
-        String str = Controler.merge(jTextField1.getText(), jTextField2.getText(), jTextField3.getText());
-        jTextArea1.append(str);
+        ResultMSG msg = Controler.merge(jTextField1.getText(), jTextField2.getText(), jTextField3.getText());
+        if (msg.getSum() != 0) {
+            jTextArea1.append("写入总数" + Integer.toString(msg.getSum()) + "\n");
+        }
+        if (msg.getMsg() != "") {
+            jTextArea1.append(msg.getMsg());
+        }
     }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
