@@ -113,11 +113,13 @@
     </Component>
     <Component class="javax.swing.JTextField" name="jTextField1">
       <Properties>
+        <Property name="text" type="java.lang.String" value="F:\u005cpurchaseorder" containsInvalidXMLChars="true"/>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="jTextField2">
       <Properties>
+        <Property name="text" type="java.lang.String" value="F:\u005cpurchaseorder" containsInvalidXMLChars="true"/>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
     </Component>

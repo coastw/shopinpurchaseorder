@@ -62,8 +62,10 @@ public class MainFrame extends javax.swing.JFrame {
 
         jLabel3.setText("生成的文件");
 
+        jTextField1.setText("F:\\purchaseorder");
         jTextField1.setEnabled(false);
 
+        jTextField2.setText("F:\\purchaseorder");
         jTextField2.setEnabled(false);
 
         jTextField3.setText("F:\\purchaseorder");
@@ -172,6 +174,8 @@ public class MainFrame extends javax.swing.JFrame {
     private void chooseFile(JTextField jTextField, int selectionMode) {
         JFileChooser fc = new JFileChooser();//创建文件选择器
         fc.setFileSelectionMode(selectionMode);
+        File dir = new File("f:" + File.separator + "purchaseorder");
+        fc.setCurrentDirectory(dir);
         //fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
         int returnVal = fc.showOpenDialog(MainFrame.this);//打开文件选择器
         if (returnVal == JFileChooser.APPROVE_OPTION) {
@@ -186,6 +190,8 @@ public class MainFrame extends javax.swing.JFrame {
         JFileChooser fc = new JFileChooser();//创建文件选择器
         fc.setFileSelectionMode(selectionMode);
         fc.setFileFilter(fileFilter);
+        File dir = new File("f:" + File.separator + "purchaseorder");
+        fc.setCurrentDirectory(dir);
         //fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
         int returnVal = fc.showOpenDialog(MainFrame.this);//打开文件选择器
         if (returnVal == JFileChooser.APPROVE_OPTION) {
