@@ -10,6 +10,7 @@ import com.coast.model.ResultMSG;
 import com.coast.util.XLSFileFilter;
 import com.coast.util.XLSXFileFilter1;
 import java.io.File;
+import java.net.URL;
 import javax.swing.JFileChooser;
 import javax.swing.JTextField;
 import javax.swing.filechooser.FileFilter;
@@ -27,6 +28,7 @@ public class MainFrame extends javax.swing.JFrame {
         initComponents();
         this.setLocation((int) java.awt.Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 2 - this.getWidth() / 2,
                 (int) java.awt.Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 2 - this.getHeight() / 2);
+        jTextField3.setText(getAppDir());
     }
 
     /**
@@ -62,13 +64,9 @@ public class MainFrame extends javax.swing.JFrame {
 
         jLabel3.setText("生成的文件");
 
-        jTextField1.setText("F:\\purchaseorder");
         jTextField1.setEnabled(false);
 
-        jTextField2.setText("F:\\purchaseorder");
         jTextField2.setEnabled(false);
-
-        jTextField3.setText("F:\\purchaseorder");
 
         jButton1.setText("选择文件");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -171,11 +169,15 @@ public class MainFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private String getAppDir() {
+        String dir = System.getProperty("user.dir");
+        return dir;
+    }
+
     private void chooseFile(JTextField jTextField, int selectionMode) {
         JFileChooser fc = new JFileChooser();//创建文件选择器
         fc.setFileSelectionMode(selectionMode);
-        File dir = new File("f:" + File.separator + "purchaseorder");
-        fc.setCurrentDirectory(dir);
+        fc.setCurrentDirectory( new File(getAppDir()) );
         //fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
         int returnVal = fc.showOpenDialog(MainFrame.this);//打开文件选择器
         if (returnVal == JFileChooser.APPROVE_OPTION) {
@@ -190,8 +192,7 @@ public class MainFrame extends javax.swing.JFrame {
         JFileChooser fc = new JFileChooser();//创建文件选择器
         fc.setFileSelectionMode(selectionMode);
         fc.setFileFilter(fileFilter);
-        File dir = new File("f:" + File.separator + "purchaseorder");
-        fc.setCurrentDirectory(dir);
+        fc.setCurrentDirectory(new File(getAppDir()));
         //fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
         int returnVal = fc.showOpenDialog(MainFrame.this);//打开文件选择器
         if (returnVal == JFileChooser.APPROVE_OPTION) {
