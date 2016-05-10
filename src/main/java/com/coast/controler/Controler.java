@@ -33,12 +33,14 @@ public class Controler {
             //从上品网站导出的模板文件
             String inFile = exportFile;
             //最后上传到上品网站的文件
-            String outFile = mergedFilePath + File.separator + "merged.xls";
+            int lastSlash = sapFile.lastIndexOf(File.separator);
+            String outFileName = sapFile.substring(lastSlash+1, sapFile.length() - 5) + "_merged.xls";
+            String outFile = mergedFilePath + File.separator + outFileName;
             //执行
             msg = writeProductsToExcel(products, inFile, outFile);
         } catch (Exception e) {
             e.printStackTrace();
-        }finally{
+        } finally {
             return msg;
         }
     }
@@ -61,7 +63,7 @@ public class Controler {
                 int thatRowNum = getRowNum(sheet, product.getSn(), product.getColor(), product.getSize());
                 if (thatRowNum == 0) {
                     System.out.println("没有找到对应的SAP！sn=" + product.getSn() + " color=" + product.getColor() + " size=" + product.getSize() + " amount=" + product.getAmount());
-                    String msg = "没有找到对应的SAP！sn=" + product.getSn() + " color=" + product.getColor() + " size=" + product.getSize() + " amount=" + product.getAmount()+"\n";
+                    String msg = "没有找到对应的SAP！sn=" + product.getSn() + " color=" + product.getColor() + " size=" + product.getSize() + " amount=" + product.getAmount() + "\n";
                     resultMSG.setMsg(msg);
                 } else {
                     sheet.getRow(thatRowNum).createCell(6).setCellValue((double) product.getAmount());
