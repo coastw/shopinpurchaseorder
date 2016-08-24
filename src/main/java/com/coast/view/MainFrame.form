@@ -98,12 +98,12 @@
   <SubComponents>
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>
-        <Property name="text" type="java.lang.String" value="SAP&#x6587;&#x4ef6;"/>
+        <Property name="text" type="java.lang.String" value="&#x6211;&#x4eec;&#x7684;&#x6587;&#x4ef6;"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel2">
       <Properties>
-        <Property name="text" type="java.lang.String" value="&#x5bfc;&#x51fa;&#x7684;&#x6587;&#x4ef6;"/>
+        <Property name="text" type="java.lang.String" value="&#x4e0a;&#x54c1;&#x7684;&#x6587;&#x4ef6;"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel3">

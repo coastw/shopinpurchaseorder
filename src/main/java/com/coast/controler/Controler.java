@@ -7,6 +7,7 @@ package com.coast.controler;
 
 import com.coast.model.Product;
 import com.coast.model.ResultMSG;
+import com.coast.util.POIUtil;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -15,6 +16,7 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Iterator;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
@@ -95,15 +97,20 @@ public class Controler {
 //            HSSFWorkbook wb = new HSSFWorkbook(is);
             XSSFWorkbook wb = new XSSFWorkbook(is);
             Sheet sheet = wb.getSheetAt(0);
+            
+            POIUtil poiUtil = new POIUtil();
             while (row < sheet.getLastRowNum()) {
                 if (sheet.getRow(row).getCell(1).getRichStringCellValue().toString().toUpperCase() == "") {
                     break;
                 }
-                String sn = sheet.getRow(row).getCell(1).getRichStringCellValue().toString().toUpperCase();
-                String color = sheet.getRow(row).getCell(3).getRichStringCellValue().toString();
-//                String size = sheet.getRow(row).getCell(11).getRichStringCellValue().toString();
-                String size = trimSize(sheet.getRow(row).getCell(11).getRichStringCellValue().toString());
-                double amount = sheet.getRow(row).getCell(23).getNumericCellValue();
+                Cell snCell = sheet.getRow(row).getCell(1);
+                String sn = poiUtil.getCellContentToString(snCell);
+                Cell colorCell = sheet.getRow(row).getCell(3);
+                String color = poiUtil.getCellContentToString(colorCell);
+                Cell sizeCell = sheet.getRow(row).getCell(11);
+                String size = poiUtil.getCellContentToString(sizeCell);
+                Cell amountCell = sheet.getRow(row).getCell(23);
+                double amount = Double.parseDouble(poiUtil.getCellContentToString(amountCell));
                 Product product = new Product();
                 product.setSn(sn);
                 product.setColor(color);
@@ -114,7 +121,7 @@ public class Controler {
                 row++;
             }
         } catch (Exception e) {
-            System.out.println("readProductsFromMyExcel出现异常" + row);
+            System.out.println("readProductsFromMyExcel出现异常:行=" + row + "列=目前无法确定");
             products = null;
             e.printStackTrace();
         } finally {
@@ -128,9 +135,9 @@ public class Controler {
         int lastRowNum = sheet.getLastRowNum();//excell中左后一行显示为lastRowNum+1;
         int rowNum = lastRowNum;
         while (rowNum > 0) {
-            if (sheet.getRow(rowNum).getCell(3).getRichStringCellValue().toString().trim().equals(sn)
+            if (sheet.getRow(rowNum).getCell(3).getRichStringCellValue().toString().trim().equals(sn.toUpperCase())
                     && sheet.getRow(rowNum).getCell(4).getRichStringCellValue().toString().trim().equals(color)
-                    && sheet.getRow(rowNum).getCell(5).getRichStringCellValue().toString().trim().equals(size)) {
+                    && sheet.getRow(rowNum).getCell(5).getRichStringCellValue().toString().trim().equals(size.toUpperCase())) {
                 break;
             }
             rowNum--;
@@ -138,10 +145,10 @@ public class Controler {
         return rowNum;
     }
 
-    public static String trimSize(String size) {
-        String editedSize = "";
-        String regex = "[cm]";
-        editedSize = size.replaceAll(regex, "");
-        return editedSize;
-    }
+//    public static String trimSize(String size) {
+//        String editedSize = "";
+//        String regex = "[CM]";
+//        editedSize = size.replaceAll(regex, "");
+//        return editedSize;
+//    }
 }

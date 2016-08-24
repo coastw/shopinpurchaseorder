@@ -10,7 +10,6 @@ import com.coast.model.ResultMSG;
 import com.coast.util.XLSFileFilter;
 import com.coast.util.XLSXFileFilter1;
 import java.io.File;
-import java.net.URL;
 import javax.swing.JFileChooser;
 import javax.swing.JTextField;
 import javax.swing.filechooser.FileFilter;
@@ -58,9 +57,9 @@ public class MainFrame extends javax.swing.JFrame {
         setTitle("生成上品订单文件");
         setName("mainFrame"); // NOI18N
 
-        jLabel1.setText("SAP文件");
+        jLabel1.setText("我们的文件");
 
-        jLabel2.setText("导出的文件");
+        jLabel2.setText("上品的文件");
 
         jLabel3.setText("生成的文件");
 
