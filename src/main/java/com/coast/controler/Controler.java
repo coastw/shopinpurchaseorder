@@ -68,7 +68,7 @@ public class Controler {
                     String msg = "没有找到对应的SAP！sn=" + product.getSn() + " color=" + product.getColor() + " size=" + product.getSize() + " amount=" + product.getAmount() + "\n";
                     resultMSG.setMsg(msg);
                 } else {
-                    sheet.getRow(thatRowNum).createCell(6).setCellValue((double) product.getAmount());
+                    sheet.getRow(thatRowNum).createCell(7).setCellValue((double) product.getAmount());
                     sum += product.getAmount();
                 }
             }
@@ -135,9 +135,9 @@ public class Controler {
         int lastRowNum = sheet.getLastRowNum();//excell中左后一行显示为lastRowNum+1;
         int rowNum = lastRowNum;
         while (rowNum > 0) {
-            if (sheet.getRow(rowNum).getCell(3).getRichStringCellValue().toString().trim().equals(sn.toUpperCase())
-                    && sheet.getRow(rowNum).getCell(4).getRichStringCellValue().toString().trim().equals(color)
-                    && sheet.getRow(rowNum).getCell(5).getRichStringCellValue().toString().trim().equals(size.toUpperCase())) {
+            if (sheet.getRow(rowNum).getCell(4).getRichStringCellValue().toString().trim().equals(sn.toUpperCase())
+                    && sheet.getRow(rowNum).getCell(5).getRichStringCellValue().toString().trim().equals(color)
+                    && sheet.getRow(rowNum).getCell(6).getRichStringCellValue().toString().trim().equals(size.toUpperCase())) {
                 break;
             }
             rowNum--;
